@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: API de Chatbot Sushi
+  description: Documentación de la API para el chatbot de pedidos de sushi.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:5000
+
+paths:
+  /chat:
+    post:
+      summary: Envía un mensaje al chatbot
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "Hola, quiero hacer un pedido"
+      responses:
+        200:
+          description: Respuesta del chatbot
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    example: "¡Hola! ¿Qué te gustaría pedir?"
+
+  /menu:
+    get:
+      summary: Obtiene el menú disponible
+      tags:
+        - Menú
+      responses:
+        200:
+          description: Lista de productos disponibles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    price:
+                      type: number
+                  example:
+                    id: "1"
+                    name: "Sushi roll"
+                    price: 10.99
+
+  /order:
+    post:
+      summary: Crea un pedido
+      tags:
+        - Pedido
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      quantity:
+                        type: integer
+                  example:
+                    - id: "1"
+                      quantity: 2
+      responses:
+        201:
+          description: Pedido creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orderId:
+                    type: string
+                  status:
+                    type: string
+                  example:
+                    orderId: "12345"
+                    status: "pendiente"
