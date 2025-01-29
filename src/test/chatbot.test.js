@@ -1,6 +1,6 @@
 import request from 'supertest';
 import mongoose from 'mongoose';
-import app from '../app.js';
+import app from '../index.js';
 import Product from '../models/Product.js';
 import Order from '../models/Order.js';
 

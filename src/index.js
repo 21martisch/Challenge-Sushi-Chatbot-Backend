@@ -12,7 +12,7 @@ import { assignUserId } from './middleware/assignUserId.js';
 import cors from 'cors'
 
 dotenv.config();
-
+const PORT = process.env.PORT || 5000;
 const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -30,9 +30,10 @@ app.use('/chat', chatRoutes);
 app.use('/menu', menuRoutes);
 app.use('/order', orderRoutes);
 
-
-
 app.use(errorHandler);
 
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
 
 export default app;
